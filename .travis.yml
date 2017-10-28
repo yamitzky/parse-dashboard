@@ -3,6 +3,7 @@ node_js:
 - '4.4'
 - '5.7'
 - '6.1'
+before_script: ./scripts/before_script.sh
 cache:
   directories:
     - node_modules
