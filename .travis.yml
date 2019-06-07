@@ -1,13 +1,27 @@
 language: node_js
 node_js:
-- '6.11'
-- '8.8'
-before_script: ./scripts/before_script.sh
+- '10.14'
+
+branches:
+  only:
+    - master
+    - /^greenkeeper/.*$/
+    - /^v?[0-9]+.[0-9]+.[0-9]+(-.*)?$/
+
 cache:
   directories:
-    - node_modules
+  - "$HOME/.npm"
+
+before_install:
+  - npm install -g greenkeeper-lockfile@1
+before_script:
+  - ./scripts/before_script.sh
+  - greenkeeper-lockfile-update
+after_script:
+  - greenkeeper-lockfile-upload
 deploy:
   provider: npm
+  skip_cleanup: true
   on:
     tags: true
     all_branches: true
